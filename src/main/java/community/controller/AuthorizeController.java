@@ -46,6 +46,7 @@ public class AuthorizeController {
 		accessTokenDTO.setState(state);
 		String accessToken =githubProvider.getAccessToken(accessTokenDTO);
 		GithubUser githubUser=githubProvider.getUser(accessToken);
+		System.out.println(githubUser.getAvatar_url());
 		 //2 持久化登陆
 		if(githubUser!=null) {
 			//随机生成一个token 用来作为辨认
@@ -54,7 +55,9 @@ public class AuthorizeController {
 			user.setName(githubUser.getName());
 			user.setAccountId(String.valueOf(githubUser.getId()));
 			user.setGmtCreate(System.currentTimeMillis());
-			user.setToken(token);
+ 			user.setToken(token);
+			user.setAvatarUrl(githubUser.getAvatar_url());
+			user.setGmtModified(user.getGmtCreate());
 			userMapper.insert(user);   //用户的登陆信息插入数据库			 
 			//把token放入cookie
 			response.addCookie(new Cookie("token", token)); 

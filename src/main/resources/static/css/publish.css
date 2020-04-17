@@ -1,0 +1,19 @@
+@charset "UTF-8";
+body{
+	background-color: gainsboro;
+}
+
+#context{
+	margin:30px;
+	background-color: white;
+    height: 700px;
+}
+
+#description{
+	height:314px
+}
+
+#button_fabu{
+    float: right;
+    margin: 15px;
+}
