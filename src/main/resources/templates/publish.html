@@ -52,15 +52,15 @@
     	<form action="/publish" method="post">  
  			<div class="form-group">
 			    <label for="title">问题标题</label>
-			    <input type="text" class="form-control" id="title"  name="title"placeholder="问题标题...">
+			    <input type="text" class="form-control" id="title"  th:text="${title}" name="title"placeholder="问题标题...">
 			 </div>
 			 <div class="form-group">
 			    <label for="questionBackUp">问题补充</label>
- 			 	<textarea id="description" name="description" class="form-control" rows="" cols=""></textarea>
+ 			 	<textarea id="description" name="description" th:text="${description}" class="form-control" rows="10" cols="30"></textarea>
  			 </div>
  			  <div class="form-group">
 			    <label for=tag>标签</label>
- 		        <input type="text" class="form-control" id="tag"  name="tag"placeholder="输入标签以逗号隔开">
+ 		        <input type="text" class="form-control" id="tag" th:text="${tag}" name="tag"placeholder="输入标签以逗号隔开">
  			 </div>
  			 
  			 <span class="alert alert-danger" th:text="${error}"></span>
