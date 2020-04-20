@@ -13,6 +13,7 @@ import community.dto.QuestionDTO;
 import community.exception.CustomizErrorCode;
 import community.exception.CustomizeException;
 import community.mapper.QuestionMapper;
+import community.mapper.QuestionMapperExt;
 import community.mapper.UserMapper;
 import community.model.Question;
 import community.model.QuestionExample;
@@ -25,6 +26,8 @@ public class QuestionService  {
 	private UserMapper userMapper;
 	@Autowired
 	private QuestionMapper questionMapper;
+	@Autowired
+	private QuestionMapperExt questionMapperExt;
 	
 	public PaginationDTO getQuestionList(Integer page,Integer size) {
 		PaginationDTO paginationDTOList=new PaginationDTO();
@@ -118,6 +121,14 @@ public class QuestionService  {
 			question.setGmtModified(System.currentTimeMillis());
 			questionMapper.updateByPrimaryKey(question);
 		}
+	}
+
+	public void incView(Integer id) {
+ 		 
+		Question question = new Question();
+		question.setViewCount(1);
+		question.setId(id);
+		questionMapperExt.incView(question);
 	}
 	
 }
