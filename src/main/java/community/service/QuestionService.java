@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import community.dto.PaginationDTO;
 import community.dto.QuestionDTO;
+import community.exception.CustomizErrorCode;
+import community.exception.CustomizeException;
 import community.mapper.QuestionMapper;
 import community.mapper.UserMapper;
 import community.model.Question;
@@ -94,6 +96,10 @@ public class QuestionService  {
 	public QuestionDTO getQuestionById(Integer id) {
 		UserExample example=new UserExample();
 		Question  question  =questionMapper.selectByPrimaryKey(id);
+		if(question == null) {
+			throw new CustomizeException(CustomizErrorCode.QUESTION_NOT_FOUND);
+		}
+		
 		QuestionDTO questionDTO =new QuestionDTO();
 		example.createCriteria().andAccountIdEqualTo(question.getCreator());
 		List<User> users=userMapper.selectByExample(example);
@@ -105,6 +111,7 @@ public class QuestionService  {
 	
 	public void createOrUpdate(Question question) {
 		Question q= questionMapper.selectByPrimaryKey(question.getId());
+		 
 		if(q == null) {
 			questionMapper.insert(question);
 		}else {
