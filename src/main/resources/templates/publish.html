@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
- <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css"/>
-<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/communitycss.css">
+ <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/communitycss.css">
 <title>发布-花花社区</title>
 </head>
 
@@ -19,9 +19,10 @@
     	<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2> 	
     	<hr>
     	<form action="/publish" method="post">  
+    	<input type="hidden" th:value="${id}" name="id">
  			<div class="form-group">
 			    <label for="title">问题标题</label>
-			    <input type="text" class="form-control" id="title"  th:text="${title}" name="title"placeholder="问题标题...">
+			    <input type="text" class="form-control" id="title"  th:value="${title}" name="title" placeholder="问题标题...">
 			 </div>
 			 <div class="form-group">
 			    <label for="questionBackUp">问题补充</label>
@@ -29,7 +30,7 @@
  			 </div>
  			  <div class="form-group">
 			    <label for=tag>标签</label>
- 		        <input type="text" class="form-control" id="tag" th:text="${tag}" name="tag"placeholder="输入标签以逗号隔开">
+ 		        <input type="text" class="form-control" id="tag" th:value="${tag}" name="tag"placeholder="输入标签以逗号隔开">
  			 </div>
  			 
  			 <span class="alert alert-danger" th:text="${error}"></span>

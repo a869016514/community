@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import community.model.Question;
 
@@ -25,5 +26,11 @@ public interface QuestionMapper {
 	
 	@Select("SELECT COUNT(1) FROM question where creator=#{userId} ")
 	Integer countByUserId(String userId);
+	
+	@Select("select * from question where id=#{id}")
+	Question getQuestionById(Integer id);
+	
+	@Update("update question set title=#{title},description=#{description},tag=#{tag},gmt_Modified=#{gmtModified} where id=#{id}")
+	void update(Question question);
  
 }
