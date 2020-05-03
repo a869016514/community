@@ -28,7 +28,7 @@ public class GithubProvider {
 				.url("https://github.com/login/oauth/access_token")
 				.post(body)
 				.build();
-	
+	     
 		try (Response response = client.newCall(request).execute()) {
 			String msg = response.body().string();
  			String token=msg.split("&")[0].split("=")[1];
@@ -45,7 +45,7 @@ public class GithubProvider {
 		Request request = new Request.Builder()
 				.url("https://api.github.com/user?access_token="+accessToken)
 				.build();
-	
+	  
 		try {
 			Response response = client.newCall(request).execute();
 			String msg = response.body().string();

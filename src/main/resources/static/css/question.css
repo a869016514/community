@@ -1,0 +1,28 @@
+.comment{
+	margin:10px 0;
+}
+
+.question_sper{
+	margin-top:0;
+}
+
+.menu{
+	color:#999;
+	margin-top:5px;
+}
+
+.menu .icon {
+	margin-right:6px;
+	font-size:15px;
+	cursor:pointer;
+}
+
+.menu .icon:hover{
+	color:#499ef3;
+}
+
+.question_section{
+	padding-bottom:5px;
+	border-bottom:1px solid #eee;
+	margin-bottom:15px;
+}

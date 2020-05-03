@@ -36,10 +36,13 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 	<!-- 指定每个表的生成策略 -->
-     <table tableName="user"  domainObjectName="User">
+<!--      <table tableName="user"  domainObjectName="User">
      	
      </table>
      <table tableName="question"  domainObjectName="Question">
+     	
+     </table> -->
+      <table tableName="comment"  domainObjectName="Comment">
      	
      </table>
 

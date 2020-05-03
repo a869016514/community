@@ -57,11 +57,11 @@ public class AuthorizeController {
 			user.setToken(token);
 			user.setAvatarUrl(githubUser.getAvatar_url());
 			user.setGmtModified(user.getGmtCreate());
-
-			 userService.createOrUpdate(user);
-			 
+			 userService.createOrUpdate(user);			 
 			// 把token放入cookie
-			response.addCookie(new Cookie("token", token));
+			 Cookie cookie= new Cookie("token", token);
+		     cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
+			 response.addCookie(cookie);
 			return "redirect:/"; // 重定向
 		} else {
 			// 登陆失败

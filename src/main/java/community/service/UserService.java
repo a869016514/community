@@ -24,12 +24,13 @@ public class UserService {
 		      User dbUser=users.get(0);
 		      User updateUser=new User();
 		      updateUser.setGmtModified(System.currentTimeMillis());
-		      updateUser.setToken(dbUser.getToken());
-		      updateUser.setName(dbUser.getName());
-		      updateUser.setAvatarUrl(dbUser.getAvatarUrl());
+		      updateUser.setToken(user.getToken());
+		      updateUser.setName(user.getName());
+		      updateUser.setAvatarUrl(user.getAvatarUrl());
 		      UserExample example2=new UserExample();
 		      example.createCriteria().andIdEqualTo(dbUser.getId());
 		      userMapper.updateByExampleSelective(updateUser, example2);
+	 
 		 }
 		
 	}
