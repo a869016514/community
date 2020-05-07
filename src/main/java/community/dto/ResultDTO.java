@@ -3,9 +3,10 @@ package community.dto;
 import community.exception.CustomizErrorCode;
 import community.exception.CustomizeException;
 
-public class ResultDTO {
+public class ResultDTO <T>{
 		private String message;
 		private Integer code;
+		private  T data;
 		
 		public static ResultDTO errorOf(Integer code , String message) {
 			ResultDTO resultDTO=new ResultDTO();
@@ -26,6 +27,15 @@ public class ResultDTO {
 			return resultDTO;
 		}
 		
+		public static <T> ResultDTO okOf(T t) {
+			ResultDTO resultDTO=new ResultDTO();
+			resultDTO.setCode(200);
+			resultDTO.setMessage("请求成功");
+			resultDTO.setData(t);
+			return resultDTO;
+		}
+		
+
 		public static ResultDTO errorOf(CustomizeException e) {
 			 
 			return errorOf(e.getCode(),e.getMessage());
@@ -47,7 +57,14 @@ public class ResultDTO {
 			this.code = code;
 		}
 
-		
+		public T getData() {
+			return data;
+		}
+
+		public void setData(T data) {
+			this.data = data;
+		}
+
 		
 		
 }

@@ -13,12 +13,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import community.mapper.UserMapper;
 import community.model.User;
 import community.model.UserExample;
+import community.service.NotificationService;
 
 @Component
 public class SessionInterceptor implements HandlerInterceptor {
 	@Autowired
 	private UserMapper userMapper;
-	
+	@Autowired
+	private NotificationService notifycationService;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception { 
@@ -33,6 +35,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 				List<User> users=userMapper.selectByExample(example);
 				if(users.size()!=0) {
 					request.getSession().setAttribute("user", users.get(0));
+					Long unreadCount=notifycationService.unreadCount(users.get(0).getAccountId());
+					request.getSession().setAttribute("unreadCount", unreadCount);
 				}
 				break;
 			}

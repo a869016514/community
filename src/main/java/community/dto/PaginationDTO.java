@@ -3,21 +3,23 @@ package community.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaginationDTO {
-		private List<QuestionDTO> questions;
+public class PaginationDTO <T>{
+		private List<T> data;
 		private boolean showPrevious;  //前一夜按钮
 		private boolean showFirstPage; //第一页
 		private boolean showNext;	   //下一页
-		private boolean showEndPage;   //最后一页
-		
+		private boolean showEndPage;   //最后一页 
 		private Integer page;
-		private Integer totalPage;
+		private Integer totalPage; 
 		private List<Integer> pages=new ArrayList<Integer>();
-		public List<QuestionDTO> getQuestions() {
-			return questions;
+		
+		
+		
+		public List<T> getData() {
+			return data;
 		}
-		public void setQuestions(List<QuestionDTO> questions) {
-			this.questions = questions;
+		public void setData(List<T> data) {
+			this.data = data;
 		}
 		public boolean isShowPrevious() {
 			return showPrevious;

@@ -2,6 +2,8 @@ package community.controller;
  
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,15 +50,16 @@ public class PublishController {
 			) {
 		model.addAttribute("title", title);
 		model.addAttribute("tag", tag);
-		model.addAttribute("description", description);
-		
-		
+		model.addAttribute("description", description); 
 		User user=(User)request.getSession().getAttribute("user"); 
 		if(user==null) {
 			model.addAttribute("error","用户未登录");
 			return "publish";
+		} 
+		if(StringUtils.isBlank(title) || StringUtils.isBlank(description) ||StringUtils.isBlank(tag) ) {
+			model.addAttribute("error",  "输入不正确，标题、内容、标签不能为空");
+			return "publish";
 		}
-		
 		Question question =new Question();
 		question.setId(id);
 		question.setTag(tag);

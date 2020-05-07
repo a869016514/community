@@ -2,7 +2,9 @@ package community.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,9 @@ public class QuestionService  {
 	@Autowired
 	private QuestionMapperExt questionMapperExt;
 	
-	public PaginationDTO getQuestionList(Integer page,Integer size) {
-		PaginationDTO paginationDTOList=new PaginationDTO();
+	//所有的问题
+	public  PaginationDTO<QuestionDTO> getQuestionList(Integer page,Integer size) {
+		PaginationDTO <QuestionDTO> paginationDTOList = new PaginationDTO<>();
 		Integer totalCount=(int)questionMapper.countByExample(null);
  		paginationDTOList.setPagination(totalCount,page,size);
 		if(page<1) {
@@ -54,26 +57,34 @@ public class QuestionService  {
 			qd.setUser(users.get(0));
 			questionDTOList.add(qd);
 		}
-		paginationDTOList.setQuestions(questionDTOList);
+		paginationDTOList.setData(questionDTOList);
 
 
 		return paginationDTOList;
 	}
-
-	public PaginationDTO getMyQuestionList(String creator, Integer page, Integer size) {
-		PaginationDTO paginationDTOList=new PaginationDTO();
+	//我的问题
+	public PaginationDTO<QuestionDTO> getMyQuestionList(String creator, Integer page, Integer size) {
+		PaginationDTO<QuestionDTO> paginationDTOList=new PaginationDTO<>();
 		QuestionExample questionExample=new QuestionExample();
 		UserExample example=new UserExample();
 		questionExample.createCriteria().andCreatorEqualTo(creator);	
 		Integer totalCount= (int)questionMapper.countByExample(questionExample);
- 		paginationDTOList.setPagination(totalCount,page,size);
+		Integer totalPage = 0;
+		
+		if(totalCount % size == 0) {
+			totalPage = totalCount / size;
+		}else {
+			totalPage = totalCount / size + 1;
+		} 
+		
 		if(page<1) {
-			page=1;
-		}
-		if(page>paginationDTOList.getTotalPage()) {
-			page=paginationDTOList.getTotalPage();
+			page = 1;
 		}
 		
+		if(page  > totalPage) {
+			page = totalPage;
+		}
+		paginationDTOList.setPagination(totalCount,page,size);
 	    //size*(page-1)
 		//导航条显示第几页到第几页 如果page=1  导航条显示 1-5页
 		Integer offset=size*(page-1); 
@@ -89,7 +100,7 @@ public class QuestionService  {
 			qd.setUser(users.get(0));
 			questionDTOList.add(qd);
 		}
-		paginationDTOList.setQuestions(questionDTOList);
+		paginationDTOList.setData(questionDTOList);
 
 
 		return paginationDTOList;
@@ -129,6 +140,26 @@ public class QuestionService  {
 		question.setViewCount(1);
 		question.setId(id);
 		questionMapperExt.incView(question);
+	}
+
+	public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {
+		if(StringUtils.isBlank( queryDTO.getTag())) {
+			return new ArrayList<>();
+		}
+		String tag=queryDTO.getTag();
+		if(queryDTO.getTag().contains(",")) {
+			tag=StringUtils.replace(queryDTO.getTag(), ",", "|");
+		}
+		Question question=new Question();
+		question.setId(queryDTO.getId());
+		question.setTag(tag);
+		List<Question> questions=questionMapperExt.selectRelated(question);
+		List<QuestionDTO> questionDTOs=questions.stream().map(q->{
+			QuestionDTO questionDTO =new QuestionDTO();
+			BeanUtils.copyProperties(q, questionDTO);
+			return questionDTO;
+		}).collect(Collectors.toList()); 
+		return questionDTOs;
 	}
 	
 }

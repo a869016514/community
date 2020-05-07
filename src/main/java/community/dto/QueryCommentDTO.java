@@ -12,8 +12,15 @@ public class QueryCommentDTO {
 	    private Long likeCount; 
 	    private String content;
 	    private User user;
+	    private Integer countComment;
 		public Integer getId() {
 			return id;
+		}
+		public Integer getCountComment() {
+			return countComment;
+		}
+		public void setCountComment(Integer countComment) {
+			this.countComment = countComment;
 		}
 		public void setId(Integer id) {
 			this.id = id;

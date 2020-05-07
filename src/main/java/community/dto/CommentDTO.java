@@ -4,6 +4,13 @@ public class CommentDTO {
 	private Integer parentId;
 	private String content;
 	private Integer type;
+	private Integer countComment;
+	public Integer getCountComment() {
+		return countComment;
+	}
+	public void setCountComment(Integer countComment) {
+		this.countComment = countComment;
+	}
 	public Integer getParentId() {
 		return parentId;
 	}

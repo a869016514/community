@@ -26,3 +26,36 @@
 	border-bottom:1px solid #eee;
 	margin-bottom:15px;
 }
+
+.sub{
+	border-radius:5px;
+	margin-top:10px;
+	border:1px solid #eee;
+	padding-top:15px;
+	margin-bottom:15px;
+}
+
+.sub .btn{
+	margin:10px 0;
+}
+
+.countComment2{
+    font-size:15px;
+}
+
+.tag{
+	margin:5px;
+}
+
+.related{
+	line-height:30px;
+	font-size:16px;
+	list-style:none;
+	padding-left:0;
+	margin-left:0;
+}
+
+.wechat{
+	width:50%; 
+	margin-left: 100px;
+}

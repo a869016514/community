@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import community.dto.QueryCommentDTO;
 import community.dto.QuestionDTO;
+import community.enums.CommentTypeEnum;
 import community.service.CommentService;
 import community.service.QuestionService;
 
@@ -24,10 +25,12 @@ public class QuestionController {
 	public String question(@PathVariable(name="id") Integer id,
 			Model model) { 
 		QuestionDTO questionDTO= questionService.getQuestionById(id);
+		List<QuestionDTO> relatedQuestion= questionService.selectRelated(questionDTO); 
+		List<QueryCommentDTO> queryCommentDTOs=commentService.listByTargerId(id,CommentTypeEnum.QUESTION);
 		questionService.incView(id);
-		List<QueryCommentDTO> queryCommentDTOs=commentService.listByQuestionId(id);
 		model.addAttribute("question", questionDTO);
 		model.addAttribute("comments", queryCommentDTOs);
+		model.addAttribute("relatedQuestions", relatedQuestion);
 		return "question";
 	}
 	
