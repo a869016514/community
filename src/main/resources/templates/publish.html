@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/css/editormd.min.css"/>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/editormd.min.js"></script>
-<link rel="stylesheet" href="/css/communitycss.css">
+<link rel="stylesheet" href="/css/community.css">
 <title>发布-花花社区</title>
 </head>
 <script type="text/javascript">
@@ -17,7 +17,10 @@
              width  : "100%",
              height : "500px",
             path: "/js/lib/",
-            placeholder:"请输入问题描述..."
+            placeholder:"请输入问题描述...",
+            imageUpload:true,
+            imageFormats:["jpg","jpeg","gif","png","bmp","webp"],
+            imageUploadURL:"/file/upload"
         });
     });
 </script>

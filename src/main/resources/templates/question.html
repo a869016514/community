@@ -112,11 +112,11 @@
 					<div class="media">
 						<div class="media-left">
 							<img class="media-object avatar img-rounded"
-								th:src="${question.user.avatarUrl}">
+								th:src="${session.user != null ?session.user.avatarUrl : '/img/staticUrl.png'}">
 						</div>
 						<div class="media-body">
 							<h4 class="media-midle">
-								<span th:text=${question.user.name}></span>
+								<span th:text="${session.user != null ? session.user.name : '游客'}"></span>
 							</h4>
 						</div>
 					</div>

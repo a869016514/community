@@ -10,6 +10,7 @@ public enum CustomizErrorCode implements ICustomizErrorCode {
 		COMMENT_IS_EMPTY(2007,"回复不能为空"),
 		READ_NOTIFICATION_FAIL(2008,"读错信息了"),
 		NOTIFICATION_NOT_FOUND(2009,"消息不存在。"),
+		FILE_UPLOAD_FAIL(2010,"文件上传失败。")
 		;	
 		
 		private String message;
