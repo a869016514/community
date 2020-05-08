@@ -21,7 +21,7 @@ import community.model.Question;
 import community.model.QuestionExample;
 import community.model.User;
 import community.model.UserExample;
-
+import community.dto.QuestionQueryDTO;
 @Service
 public class QuestionService  {
 	@Autowired
@@ -32,10 +32,22 @@ public class QuestionService  {
 	private QuestionMapperExt questionMapperExt;
 	
 	//所有的问题
-	public  PaginationDTO<QuestionDTO> getQuestionList(Integer page,Integer size) {
+	public  PaginationDTO<QuestionDTO> getQuestionList(String search,Integer page,Integer size) {
+		if(StringUtils.isNotBlank(search)) {
+			String tag=search;
+			if(search.contains(" ")) {
+				tag=StringUtils.replace(search, " ", "|");
+			}
+			
+		}
+		
+		
 		PaginationDTO <QuestionDTO> paginationDTOList = new PaginationDTO<>();
-		Integer totalCount=(int)questionMapper.countByExample(null);
- 		paginationDTOList.setPagination(totalCount,page,size);
+		QuestionQueryDTO questionQueryDTO=new QuestionQueryDTO();
+		questionQueryDTO.setSearch(search);
+		Integer totalCount = questionMapperExt.countBySearch(questionQueryDTO);
+ 		
+		paginationDTOList.setPagination(totalCount,page,size);
 		if(page<1) {
 			page=1;
 		}
@@ -46,7 +58,10 @@ public class QuestionService  {
 	    //size*(page-1)
 		//导航条显示第几页到第几页 如果page=1  导航条显示 1-5页
 		Integer offset=size*(page-1);// 
-		List<Question> questions =questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+		questionQueryDTO.setPage(offset);
+		questionQueryDTO.setSize(size); 
+		
+		List<Question> questions =questionMapperExt.selectBySearch(questionQueryDTO);
 		List<QuestionDTO> questionDTOList=new ArrayList<QuestionDTO>();
 		UserExample example=new UserExample();	
 		for(Question q:questions) {

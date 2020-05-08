@@ -36,20 +36,20 @@
   		select * from QUESTION where id != #{id} and tag regexp #{tag}
   </select>
   
-    <select id="countBySearch" parameterType="community.dto.QuestionDTO" resultType="java.lang.Integer">
+  <select id="countBySearch" parameterType="community.dto.QuestionQueryDTO" resultType="java.lang.Integer">
   		select count(*) from QUESTION 
   		<where>
   			<if test="search != null">
   				and title regexp #{search}
   			</if>
   		</where> 
-  	</select>
+  </select>
   
-    <select id="selectBySearch" parameterType="community.dto.QuestionDTO" resultMap="BaseResultMap">
+   <select id="selectBySearch" parameterType="community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
   		select * from QUESTION 
   		<where>
   			<if test="search != null">
-  				id != #{id} and tag regexp #{tag}
+  				and title regexp #{search}
   			</if>
   		</where> 
   		order by view_count desc limit #{page},#{size}
