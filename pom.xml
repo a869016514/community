@@ -98,6 +98,12 @@
 		    <artifactId>aliyun-sdk-oss</artifactId>
 		    <version>3.8.0</version>
 		</dependency>
+		
+		<!-- 日志 -->
+	<dependency>
+	   <groupId>org.projectlombok</groupId>
+	   <artifactId>lombok</artifactId>
+	</dependency>
 	</dependencies>
 
 	<build>

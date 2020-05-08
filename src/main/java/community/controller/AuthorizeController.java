@@ -11,15 +11,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+ 
 
 import community.dto.AccessTokenDTO;
-import community.dto.GithubUser;
-import community.mapper.UserMapper;
+import community.dto.GithubUser; 
 import community.model.User;
 import community.provider.GithubProvider;
 import community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@Slf4j
+@Controller 
 public class AuthorizeController {
 	@Autowired
 	private GithubProvider githubProvider;
@@ -63,8 +65,8 @@ public class AuthorizeController {
 		     cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
 			 response.addCookie(cookie);
 			return "redirect:/"; // 重定向
-		} else {
-			// 登陆失败
+		} else { 
+			// 登陆失败 
 			return "redirect:/"; // 重定向
 		}
 	}
